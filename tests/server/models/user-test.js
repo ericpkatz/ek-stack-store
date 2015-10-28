@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 require('../../../server/db/models');
 
 var User = mongoose.model('User');
+var Order = mongoose.model('Order');
 
 describe('User model', function () {
 
@@ -23,6 +24,58 @@ describe('User model', function () {
 
     it('should exist', function () {
         expect(User).to.be.a('function');
+    });
+
+    describe('#getCart', function(){
+      var user;
+      beforeEach(function(done){
+        user = new User({email: 'foo@bar.com', password: 'password' });
+        user.save(done);
+      });
+      describe('when no cart exists', function(){
+        var cart;
+        beforeEach(function(done){
+            user.getCart()
+            .then(function(_cart){
+              cart = _cart;
+            })
+            .then(done)
+            .then(null, done);
+        });
+
+        it('returns the users cart', function(){
+          expect(cart.user).to.eq(user._id)
+        });
+
+        it('the cart has a status of cart', function(){
+          expect(cart.status).to.eq('cart')
+        });
+      });
+      describe('when the cart exists', function(){
+        var cart;
+        beforeEach(function(done){
+          Order.create([
+              { user: user._id, status: 'placed' },
+              { user: user._id, status: 'cart' },
+          ])
+          .then(function(){
+            return user.getCart()
+           })
+            .then(function(_cart){
+              cart = _cart;
+            })
+            .then(done)
+            .then(null, done);
+        });
+
+        it('returns the users cart', function(){
+          expect(cart.user.toString()).to.eq(user._id.toString());
+        });
+
+        it('the cart has a status of cart', function(){
+          expect(cart.status).to.eq('cart');
+        });
+      });
     });
 
     describe('password encryption', function () {
