@@ -57,4 +57,19 @@ schema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
+schema.methods.getCart = function(){
+  var Order = mongoose.model('Order');
+  var that = this;
+  return Order.findOne({user: this._id, status: 'cart' })
+    .then(function(cart){
+      if(cart)
+        return cart;
+      return cart = Order.create({user: that._id });
+    })
+    .then(function(cart){
+      return cart;
+    });
+
+};
+
 mongoose.model('User', schema);
