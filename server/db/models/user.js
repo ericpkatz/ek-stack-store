@@ -59,15 +59,21 @@ schema.method('correctPassword', function (candidatePassword) {
 
 schema.methods.getCart = function(){
   var Order = mongoose.model('Order');
+  var LineItem = mongoose.model('LineItem');
   var that = this;
   return Order.findOne({user: this._id, status: 'cart' })
     .then(function(cart){
       if(cart)
         return cart;
-      return cart = Order.create({user: that._id });
+      return Order.create({user: that._id });
     })
     .then(function(cart){
-      return cart;
+      return LineItem.find({order: cart._id})
+        .populate('product')
+        .then(function(lineItems){
+          cart.lineItems = lineItems;
+          return cart;
+        });
     });
 
 };
