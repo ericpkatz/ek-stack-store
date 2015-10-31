@@ -1,0 +1,11 @@
+<h3>{{product.name}} {{product.price | currency}}</h3>
+{{ lineItem }}
+<form class='form'>
+  <div class='form-group'>
+    <label for='lineItem_count'>
+      How many do you want?
+    </label>
+    <input class='form-control' id='lineItem_count' ng-model='lineItem.count' />
+  </div> 
+  <button class='btn btn-primary' ng-click='purchase()'>{{ lineItem._id ? 'Update' : 'Purchase' }}</button>
+</form>

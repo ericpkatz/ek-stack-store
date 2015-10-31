@@ -1,0 +1,16 @@
+<table class='table'>
+  <thead>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Quantity</th>
+  </thead>
+  <tbody>
+  <tr ng-repeat='lineItem in cart.lineItems'>
+    <td>{{ lineItem.product.name }}</td>
+    <td>{{ lineItem.price | currency }}</td>
+    <td><input ng-model='lineItem.count' /></td>
+    <td><button class='btn btn-primary' ng-click='update(lineItem)'>Update</button></td>
+    <td><button class='btn btn-danger' ng-click='remove(lineItem)'>Remove</button></td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,11 @@
+<table class='table'>
+  <tr ng-repeat='product in products'>
+    <td>{{product.name }} <span ng-show='cart.hasProduct(product)'>*</span></td>
+    <td>{{product.price }}</td>
+    <td><a class='btn btn-default' ui-sref='product({id: product._id})'>Details</a></td>
+  </tr>
+</table>
+
+<pre>
+* You have this in your cart.
+</pre>
