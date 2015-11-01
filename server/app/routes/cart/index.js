@@ -17,6 +17,16 @@ router.get('/', ensureAuthenticated, function (req, res) {
       .then(function(cart){
         res.send(cart);
       });
+});
 
-
+router.post('/checkout', ensureAuthenticated, function (req, res) {
+  req.user
+    .getCart()
+      .then(function(cart){
+        cart.status = 'processed';
+        return cart.save();
+      })
+      .then(function(cart){
+        res.send(cart);
+      });
 });

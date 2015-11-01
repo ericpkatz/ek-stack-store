@@ -13,7 +13,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function ($scope, $http, cart, CartFactory) {
+app.controller('CartController', function ($state, $scope, $http, cart, CartFactory) {
   function loadCart(){
     $scope.cart = angular.copy(cart);
   }
@@ -33,6 +33,16 @@ app.controller('CartController', function ($scope, $http, cart, CartFactory) {
                 reloadCart();
               });
   }
+
+  $scope.checkout = function(){
+    $scope.cart.checkout()
+      .then(function(order){
+        $state.go('orders.detail', {id: $scope.cart._id});
+      });
+  }
+
+
+
   $scope.remove = function(lineItem){
             return $http.delete('/api/line_items/' + lineItem._id)
               .then(function(results){

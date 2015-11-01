@@ -56,6 +56,9 @@ schema.statics.encryptPassword = encryptPassword;
 schema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
+schema.methods.getOrders = function(){
+  return mongoose.model('Order').find({user: this._id, status: { $ne: 'cart' }});
+};
 
 schema.methods.getCart = function(){
   var Order = mongoose.model('Order');

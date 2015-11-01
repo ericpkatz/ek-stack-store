@@ -18,6 +18,20 @@ app.factory('CartFactory', function($http){
   
   }
 
+  _cart.checkout = function(product){
+    var order;
+    return $http.post('/api/cart/checkout')
+      .then(function(results){
+        order = results.data;
+      })
+      .then(function(results){
+        return cart();
+      })
+      .then(function(){
+        return order;
+      });
+  }
+
   function cart(){
     return $http.get('/api/cart')
       .then(function(results){
