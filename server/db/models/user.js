@@ -3,6 +3,9 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
+    isAdmin: {
+      type: Boolean, default: false
+    },
     email: {
         type: String
     },
