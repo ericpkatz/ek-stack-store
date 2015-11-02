@@ -6,7 +6,6 @@
   "main": "server/start.js",
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha tests/server/**/*.js",
-    "start": "nodemon --watch server -e js,html server/start.js",
     "postinstall": "gulp build"
   },
   "dependencies": {
