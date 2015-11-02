@@ -1,5 +1,11 @@
 app.factory('CartFactory', function($http){
   var _cart = {};
+  _cart.empty = function(){
+    if(!this.lineItems)
+      return;
+    return this.lineItems.length == 0;
+  
+  }
   _cart.itemCount = function(){
     if(!this.lineItems)
       return;
@@ -15,7 +21,6 @@ app.factory('CartFactory', function($http){
     return _.some(this.lineItems, function(lineItem){
       return lineItem.product._id == product._id;
     });
-  
   }
 
   _cart.checkout = function(product){

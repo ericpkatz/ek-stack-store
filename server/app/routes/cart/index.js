@@ -24,6 +24,7 @@ router.post('/checkout', ensureAuthenticated, function (req, res) {
     .getCart()
       .then(function(cart){
         cart.status = 'processed';
+        cart.orderDate = new Date();
         return cart.save();
       })
       .then(function(cart){

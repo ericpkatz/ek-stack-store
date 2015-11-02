@@ -62,7 +62,7 @@ app.controller('ProductController', function ($scope, $http, $state, product, ca
     $scope.lineItem = {
       order: cart._id,
       product: product._id,
-      count: 0
+      count: 1
     };
   }
 

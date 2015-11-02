@@ -1,6 +1,6 @@
 <ul class='nav nav-pills'>
   <li ng-repeat='order in orders' ui-sref-active='active'>
-    <a ui-sref='orders.detail({id: order._id})'>Order</a>
+    <a ui-sref='orders.detail({id: order._id})'>Order {{ order.orderDate | date }}</a>
   </li>
 </ul>
 <div ui-view></div>
