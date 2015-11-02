@@ -1,5 +1,5 @@
 {
- "engine": "node 0.12.7",
+ "engine": "node >= 0.12.7",
   "name": "FullstackGeneratedApp",
   "version": "1.0.0",
   "description": "A generated project at Fullstack Academy",
