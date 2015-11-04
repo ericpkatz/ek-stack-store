@@ -20,11 +20,11 @@ router.get('/:id', function (req, res) {
     });
 });
 
-router.post('/', function (req, res) {
+router.post('/', function (req, res, next) {
   return Product.post(req.body)
     .then(function(product){
       res.send(product);
-    });
+    }, next);
 });
 
 router.put('/:id', function (req, res) {

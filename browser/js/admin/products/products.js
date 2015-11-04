@@ -12,7 +12,7 @@ app.config(function($stateProvider){
         }
       },
       controller: function($scope, $http, products){
-        products.unshift({ name: 'insert a product', price: 0});
+        products.unshift({ name: '', price: 0});
         $scope.products = products;
 
         function reset(){
@@ -21,7 +21,7 @@ app.config(function($stateProvider){
               return results.data;
             })
             .then(function(products){
-              products.unshift({ name: 'insert a product', price: 0});
+              products.unshift({ name: '', price: 0});
               return products;
             })
             .then(function(products){

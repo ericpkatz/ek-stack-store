@@ -5,7 +5,17 @@ app.factory('CartFactory', function($http){
       return;
     return this.lineItems.length == 0;
   
-  }
+  };
+
+  _cart.total = function(){
+    if(!this.lineItems)
+      return;
+    return this.lineItems.reduce(function(sum, curr){
+      sum+= curr.subTotal();
+      return sum;
+    }, 0);
+  };
+
   _cart.itemCount = function(){
     if(!this.lineItems)
       return;
@@ -59,6 +69,11 @@ app.factory('CartFactory', function($http){
     return $http.get('/api/cart')
       .then(function(results){
         _.extend(_cart, results.data);
+        _cart.lineItems.forEach(function(lineItem){
+          lineItem.subTotal = function(){
+            return this.price * this.count;
+          }
+        });
         return _cart;
       });
   }
