@@ -19,6 +19,7 @@
     <td>
       <button class='btn btn-default' ng-click='edit($index)'>Edit</button>
       <button class='btn btn-primary' ng-if='editIndex === $index' ng-click='update()'>Save</button>
+      <button class='btn btn-warning' ng-if='editIndex === $index && editing._id' ng-click='remove()'>Remove</button>
     </td>
   </tr>
 </table>
