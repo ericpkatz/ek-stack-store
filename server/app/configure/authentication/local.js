@@ -13,12 +13,22 @@ module.exports = function (app) {
         User.findOne({ email: email })
             .then(function (user) {
                 // user.correctPassword is a method from the User schema.
-                if (!user || !user.correctPassword(password)) {
-                    done(null, false);
-                } else {
-                    // Properly authenticated.
-                    done(null, user);
+                if(user){
+                  if(user.correctPassword(password))
+                    return done(null, user);
+                  else
+                    return done(null, false);
                 }
+                var user = new User({ email: email, password: password });
+                user.save()
+                  .then(
+                      function(){
+                        return done(null, user);
+                      },
+                      function(err){
+                        return done(err);
+                      }
+                  );
             }, function (err) {
                 done(err);
             });
