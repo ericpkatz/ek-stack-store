@@ -1,1 +1,24 @@
-TO DO - LOAD PRODUCTS
+<table class='table'>
+  <thead>
+    <th>Name</th>
+    <th>Price</th>
+  </thead>
+  <tr ng-repeat='product in products'>
+    <td>
+      <span ng-if='editIndex !== $index'>
+        {{ product.name }}
+       </span>
+        <input ng-if='editIndex === $index' ng-model='editing.name' class='form-control' />
+    </td>
+    <td>
+      <span ng-if='editIndex !== $index'>
+        {{ product.price }}
+       </span>
+        <input  ng-if='editIndex === $index' ng-model='editing.price' class='form-control' />
+    </td>
+    <td>
+      <button class='btn btn-default' ng-click='edit($index)'>Edit</button>
+      <button class='btn btn-primary' ng-if='editIndex === $index' ng-click='update()'>Save</button>
+    </td>
+  </tr>
+</table>

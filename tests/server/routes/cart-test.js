@@ -82,7 +82,7 @@ describe('Cart Route', function () {
 			loggedInAgent.post('/login').send(userInfo).end(done);
 		});
 
-		it.only('should get with 200 response and with a cart and line items', function (done) {
+		it('should get with 200 response and with a cart and line items', function (done) {
 			loggedInAgent.get('/api/cart')
         .expect(200)
         .end(function (err, response) {

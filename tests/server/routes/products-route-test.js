@@ -90,11 +90,12 @@ describe('Products Route', function () {
 
 		it('can update a product', function (done) {
 			agent.put('/api/products/' + product._id )
-        .send({ name: 'bar' })
+        .send({ name: 'bar', price: 99 })
 				.expect(200)
         .expect(function(results){
           var product = results.body;
           expect(product.name).to.eq('bar');
+          expect(product.price).to.eq(99);
         })
 				.end(done);
 		});
@@ -113,7 +114,7 @@ describe('Products Route', function () {
 			agent = supertest.agent(app);
 		});
 
-		it('can update a product', function (done) {
+		it('can get a product', function (done) {
 			agent.get('/api/products/' + product._id )
 				.expect(200)
         .expect(function(results){

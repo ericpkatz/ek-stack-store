@@ -9,11 +9,12 @@ schema.virtual('url_name').get(function(product){
   return this.name.replace(/\W/g, '_');
 });
 
-var whiteListParams = ['name'];
+var whiteListParams = ['name', 'price'];
 
 schema.statics.post = function(params){
   var safeParams = whiteListParams.reduce(function(curr, key){
-    curr[key] = params[key];
+    if(params[key])
+      curr[key] = params[key];
     return curr;
   }, {});
   return this.create(safeParams);
@@ -21,7 +22,8 @@ schema.statics.post = function(params){
 
 schema.statics.put = function(id, params){
   var safeParams = whiteListParams.reduce(function(curr, key){
-    curr[key] = params[key];
+    if(params[key])
+      curr[key] = params[key];
     return curr;
   }, {});
   return this.findById(id)
