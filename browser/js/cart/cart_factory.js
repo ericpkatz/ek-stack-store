@@ -1,4 +1,4 @@
-app.factory('CartFactory', function($http){
+app.factory('CartFactory', function($http, ReportingFactory){
   var _cart = {};
   _cart.empty = function(){
     if(!this.lineItems)
@@ -40,10 +40,13 @@ app.factory('CartFactory', function($http){
         order = results.data;
       })
       .then(function(results){
+        //reset the cart
         return cart();
       })
       .then(function(){
+        ReportingFactory.report(order);
         //record the transaction
+        /*
         ga('require', 'ecommerce');
         ga('ecommerce:addTransaction', {
           'id': '1234',                     // Transaction ID. Required.
@@ -61,6 +64,7 @@ app.factory('CartFactory', function($http){
           'quantity': '1'                   // Quantity.
         });
         ga('ecommerce:send');
+        */
         return order;
       });
   }
@@ -77,7 +81,6 @@ app.factory('CartFactory', function($http){
         return _cart;
       });
   }
-
 
   return {
     cart: cart 
