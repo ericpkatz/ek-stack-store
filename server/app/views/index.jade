@@ -21,11 +21,8 @@ html(lang='en')
       ga('send', 'pageview');
 
 
-    if ENV == 'development'
-      for file in jsFiles()
-        script(src="#{file}")
-    else
-      script(src='/main.js')
+    for file in scriptTags 
+      script(src="#{file}")
 
   body(ng-app='FullstackGeneratedApp')
     navbar

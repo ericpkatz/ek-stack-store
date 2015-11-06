@@ -9,7 +9,7 @@
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha tests/server/**/*.js",
     "postinstall": "gulp build",
-    "start": "node server/start"
+    "start": "nodemon server/start"
   },
   "dependencies": {
     "angular": "^1.4.0",

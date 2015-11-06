@@ -58,6 +58,10 @@ describe('Order', function(){
     it('has a collection of lineItems', function(){
       expect(order.lineItems.length).to.eq(2);
     });
+
+    it('total - adds up line items', function(){
+      expect(order.total()).to.eq(11.25);
+    });
   });
 
 });
