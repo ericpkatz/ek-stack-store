@@ -1,13 +1,26 @@
-app.factory("ReportingFactory", function(){
-  function report(order){
-    console.log('---- order id ----- ', order._id);
-    console.log('---- items -----', order.lineItems);
-    console.log(order);
-    console.log(JSON.stringify(order));
+app.factory("ReportingFactory", function($window, Order){
+  function reportTransaction(data){
+    var order = new Order(data);
+    $window.ga('require', 'ecommerce');
+    $window.ga('ecommerce:addTransaction', {
+      'id': order._id, 
+      'revenue' : order.total().toFixed(2)
+    });
+    order.lineItems.forEach(function(lineItem){
+      var transactionData = {
+        'id': order._id,
+        'revenue': lineItem.total().toFixed(2),
+        'name' : lineItem.product.name,
+        'sku' : lineItem.product.name,
+        'quantity': lineItem.count
+      };
+      ga('ecommerce:addItem', transactionData);
+    });
+    ga('ecommerce:send');
   }
 
   return {
-    report: report
+    reportTransaction: reportTransaction
   };
 
 });

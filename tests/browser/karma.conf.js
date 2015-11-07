@@ -25,8 +25,6 @@ module.exports = function (config) {
 
     var filesCollection = [].concat(vendorFiles).concat(appFiles).concat(testFiles); 
    
-    console.log(filesCollection);
-
     var excludeFiles = [
         'tests/browser/karma.conf.js'
     ];
