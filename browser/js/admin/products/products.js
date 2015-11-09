@@ -11,7 +11,7 @@ app.config(function($stateProvider){
             });
         }
       },
-      controller: function($scope, $http, products){
+      controller: function($scope, $http, products, Upload){
         products.unshift({ name: '', price: 0});
         $scope.products = products;
 
@@ -41,7 +41,13 @@ app.config(function($stateProvider){
           var url = '/api/products/';
           if($scope.editing._id)
             url+= $scope.editing._id;
-          $http[verb](url, $scope.editing)
+          Upload.upload(
+              {
+                method: verb,
+                url: url, 
+                data: $scope.editing
+              }
+          )
             .then(function(result){
               reset();
             });

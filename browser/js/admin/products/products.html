@@ -3,12 +3,18 @@
     <th>Name</th>
     <th>Price</th>
   </thead>
-  <tr ng-repeat='product in products'>
+  <tr ng-repeat='product in products' ng-form>
     <td>
       <span ng-if='editIndex !== $index'>
         {{ product.name }}
        </span>
         <input ng-if='editIndex === $index' ng-model='editing.name' class='form-control' placeholder='insert a product'/>
+    </td>
+    <td>
+      <span ng-if='editIndex !== $index'>
+        {{ product.imageURL }}
+       </span>
+       <div  name='image{{$index}}' ng-if='editIndex === $index' ngf-select ng-model='editing.imageURL'>Select a File</div>
     </td>
     <td>
       <span ng-if='editIndex !== $index'>

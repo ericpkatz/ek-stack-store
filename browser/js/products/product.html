@@ -1,4 +1,5 @@
 <h3>{{product.name}} {{product.price | currency}}</h3>
+<img ng-if='product.imageURL' src="/images/{{product.imageURL}}" />
 <form class='form'>
   <div class='form-group'>
     <label for='lineItem_count'>
