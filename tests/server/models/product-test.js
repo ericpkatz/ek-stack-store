@@ -30,7 +30,7 @@ describe('Product model', function () {
       var product;
 
       beforeEach(function(done){
-        product = new Product({ name: 'foo', price: 4.99 });
+        product = new Product({ name: 'foo', price: 4.99, imageURL: 'foobar.jpg' });
         product.save(done);
       });
 
@@ -44,6 +44,10 @@ describe('Product model', function () {
 
       it('price is set', function(){
         expect(product.price).to.eq(4.99);
+      });
+
+      it('imageURL is set', function(){
+        expect(product.imageURL).to.eq('foobar.jpg');
       });
 
     });
