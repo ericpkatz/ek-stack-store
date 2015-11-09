@@ -8,6 +8,14 @@ module.exports = app;
 
 app.locals.pretty = true;
 
+var tmp = path.join(__dirname, '../../', 'public/images');   
+
+fs.mkdir(tmp, function(err, dir){
+  console.log('err', err);
+  console.log('dir', dir);
+
+});
+
 // Pass our express application pipeline into the configuration
 // function located at server/app/configure/index.js
 require('./configure')(app);
