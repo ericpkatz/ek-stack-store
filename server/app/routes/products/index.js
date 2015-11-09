@@ -26,10 +26,26 @@ router.get('/:id', function (req, res) {
 });
 
 router.post('/', function (req, res, next) {
-  return Product.post(req.body)
-    .then(function(product){
-      res.send(product);
-    }, next);
+  var update = function(params){
+    return Product.post(params)
+      .then(function(product){
+        res.send(product);
+      });
+  };
+  if(req.files.imageURL){
+    var source = req.files.imageURL.path;
+    var fileName = path.basename(req.files.imageURL.path);
+    var dest = path.join(__dirname, '../../../../', 'public/images', fileName);   
+    fs.rename(source, dest, function(err){
+      if(err)
+        return next(err);
+      var params = _.extend(req.body, { imageURL: fileName});
+      return update(params);
+    });
+  }
+  else {
+    return update(req.body);
+  }
 });
 
 router.put('/:id', function (req, res, next) {
