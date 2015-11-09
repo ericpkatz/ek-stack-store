@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Product = mongoose.model('Product');
 var multiparty = require('connect-multiparty');
 var path = require('path');
-var fs = require('fs');
+var mv = require('mv');
 var _ = require('lodash');
 
 router.use(multiparty());
@@ -36,7 +36,7 @@ router.post('/', function (req, res, next) {
     var source = req.files.imageURL.path;
     var fileName = path.basename(req.files.imageURL.path);
     var dest = path.join(__dirname, '../../../../', 'public/images', fileName);   
-    fs.rename(source, dest, function(err){
+    mv(source, dest, {mkdirp: true}, function(err) {
       if(err)
         return next(err);
       var params = _.extend(req.body, { imageURL: fileName});
@@ -59,7 +59,7 @@ router.put('/:id', function (req, res, next) {
     var source = req.files.imageURL.path;
     var fileName = path.basename(req.files.imageURL.path);
     var dest = path.join(__dirname, '../../../../', 'public/images', fileName);   
-    fs.rename(source, dest, function(err){
+    mv(source, dest, {mkdirp: true}, function(err) {
       if(err)
         return next(err);
       var params = _.extend(req.body, { imageURL: fileName});
