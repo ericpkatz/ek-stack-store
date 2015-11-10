@@ -32,7 +32,7 @@ router.post('/', function (req, res, next) {
         res.send(product);
       });
   };
-  if(req.files.imageURL){
+  if(req.files && req.files.imageURL){
     var source = req.files.imageURL.path;
     var fileName = path.basename(req.files.imageURL.path);
     var dest = path.join(__dirname, '../../../../', 'public/images', fileName);   
@@ -55,7 +55,7 @@ router.put('/:id', function (req, res, next) {
         res.send(product);
       });
   };
-  if(req.files.imageURL){
+  if(req.files && req.files.imageURL){
     var source = req.files.imageURL.path;
     var fileName = path.basename(req.files.imageURL.path);
     var dest = path.join(__dirname, '../../../../', 'public/images', fileName);   
